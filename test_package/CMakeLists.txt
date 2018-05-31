@@ -1,12 +1,8 @@
-project(test_package)
-cmake_minimum_required(VERSION 2.8.11)
-
-set(CMAKE_VERBOSE_MAKEFILE TRUE)
+cmake_minimum_required(VERSION 2.8.12)
+project(test_package C)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-file(GLOB SOURCE_FILES *.cpp)
-
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+add_executable(${CMAKE_PROJECT_NAME} test_package.c)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${CONAN_LIBS})

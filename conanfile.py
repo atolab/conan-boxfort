@@ -3,6 +3,7 @@
 
 from conans import ConanFile, CMake, tools
 import os
+import re
 
 
 class BoxFortConan(ConanFile):
@@ -69,12 +70,34 @@ class BoxFortConan(ConanFile):
     def build(self):
         cmake = self.configure_cmake()
         cmake.build()
+        # Whether or not the package consumer should link against rt (only
+        # applicable to static builds), depends on whether or not
+        # CMakeLists.txt sets HAVE_LIBRT.
+        if not self.options.shared and self.settings.os == 'Linux':
+            build_folder = "{0}/{1}".format(self.build_folder, self.build_subfolder)
+            have_librt_re = re.compile('^HAVE_(SHM|[A-Z_]+_RT):INTERNAL=1$')
+            have_librt = False
+            with open("{0}/CMakeCache.txt".format(build_folder)) as f:
+                for line in f:
+                    if have_librt_re.match(line):
+                        have_librt = True
+                        break
+            if have_librt:
+                with open("{0}/static.dependencies".format(build_folder), "w") as f:
+                    f.write("pthread\n")
+                    f.write("rt\n")
 
     def package(self):
         self.copy(pattern="LICENSE", dst="licenses", src=self.source_subfolder)
+        build_folder = "{0}/{1}".format(self.build_folder, self.build_subfolder)
+        self.copy(pattern="static.dependencies", dst="lib", src=build_folder)
         cmake = self.configure_cmake()
         cmake.install()
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
+        if not self.options.shared and self.settings.os == 'Linux':
+            with open("{0}/lib/{1}".format(self.package_folder, "static.dependencies")) as f:
+                for line in f:
+                    self.cpp_info.libs.append(line)
 
