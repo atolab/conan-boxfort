@@ -68,6 +68,21 @@ class BoxFortConan(ConanFile):
         return cmake
 
     def build(self):
+        # The BoxFort CMake files use CMAKE_SYSTEM_PROCESSOR to decide which
+        # trampoline-x.S file should be added to the sources. This is a problem
+        # on systems that cross-compile for a different architecture. E.g. the
+        # Docker images used by the automatic builds are still 64-bit, but
+        # build for 32-bit.
+        build_arch = self.settings.get_safe('arch_build') or tools.detected_architecture()
+        target_arch = self.settings.get_safe('target_arch') or self.settings.get_safe('arch')
+        if (build_arch != target_arch and
+            not (os.getenv('CONAN_CMAKE_SYSTEM_PROCESSOR', False)) or
+                 os.getenv('CMAKE_SYSTEM_PROCESSOR', False)):
+            path = '{0}/CMakeLists.txt'.format(self.source_subfolder)
+            search = 'set (_ARCH "${CMAKE_SYSTEM_PROCESSOR}")'
+            replace = 'set (_ARCH "{0}")'.format(target_arch)
+            tools.replace_in_file(path, search, replace)
+
         cmake = self.configure_cmake()
         cmake.build()
         # Whether or not the package consumer should link against rt (only
