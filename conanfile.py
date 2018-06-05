@@ -7,7 +7,7 @@ import re
 
 
 class BoxFortConan(ConanFile):
-    name = "boxfort"
+    name = "BoxFort"
     version = "05312018"
     description = "Convenient & cross-platform sandboxing C library"
     url = "https://github.com/k0ekk0ek/conan-boxfort"
@@ -42,6 +42,8 @@ class BoxFortConan(ConanFile):
 
     branch = "master"
     commit = "4bac60bf13a49eadb76f55343164cbe8199b8d66"
+    # Version used by Criterion 2.3.2:
+    #commit = "7ed0cf2120926935bfd1b24e3fdfd63d70b1999c"
 
     def config_options(self):
         if self.settings.os == 'Windows':
