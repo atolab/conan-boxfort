@@ -7,7 +7,7 @@ import re
 
 
 class BoxFortConan(ConanFile):
-    name = "BoxFort"
+    name = "boxfort"
     version = "05312018"
     description = "Convenient & cross-platform sandboxing C library"
     url = "https://github.com/k0ekk0ek/conan-boxfort"
