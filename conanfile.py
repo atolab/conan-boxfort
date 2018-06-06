@@ -117,4 +117,9 @@ class BoxFortConan(ConanFile):
             with open("{0}/lib/{1}".format(self.package_folder, "static.dependencies")) as f:
                 for line in f:
                     self.cpp_info.libs.append(line)
+        if not self.options.shared and self.settings.os == 'Windows':
+            # Pass BXF_STATIC_LIB for static builds on Windows otherwise the
+            # boxfort.h file will define BXF_API to __declspec(...) causing a
+            # linker error.
+            self.cpp_info.defines.append('BXF_STATIC_LIB')
 
