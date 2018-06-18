@@ -8,7 +8,7 @@ import re
 
 class BoxFortConan(ConanFile):
     name = "boxfort"
-    version = "05112018"
+    version = "12122016"
     description = "Convenient & cross-platform sandboxing C library"
     url = "https://github.com/k0ekk0ek/conan-boxfort"
     homepage = "https://github.com/diacritic/BoxFort"
@@ -40,12 +40,15 @@ class BoxFortConan(ConanFile):
     source_subfolder = "source_subfolder"
     build_subfolder = "build_subfolder"
 
+    # Version used by Criterion 2.3.2
     branch = "master"
-    commit = "4bac60bf13a49eadb76f55343164cbe8199b8d66"
+    commit = "7ed0cf2120926935bfd1b24e3fdfd63d70b1999c"
 
     def config_options(self):
         if self.settings.os == 'Windows':
             del self.options.fPIC
+            del self.options.arena_reopen_shm
+            del self.options.arena_file_backed
 
     def source(self):
         self.run("git clone --branch={0} {1}.git {2}"
@@ -56,7 +59,7 @@ class BoxFortConan(ConanFile):
     def configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions['USE_QEMU'] = self.options.use_qemu
-        cmake.definitions['BXF_STATIC_LIB'] = self.options.shared == False
+        cmake.definitions['BXF_STATIC_LIB'] = not self.options.shared
         cmake.definitions['BXF_SAMPLES'] = self.options.samples
         cmake.definitions['BXF_TESTS'] = self.options.tests
         cmake.definitions['BXF_FORK_RESILIENCE'] = self.options.fork_resilience
