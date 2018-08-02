@@ -10,7 +10,7 @@ class BoxFortConan(ConanFile):
     name = "boxfort"
     version = "12122016"
     description = "Convenient & cross-platform sandboxing C library"
-    url = "https://github.com/k0ekk0ek/conan-boxfort"
+    url = "https://github.com/atolab/conan-boxfort"
     homepage = "https://github.com/diacritic/BoxFort"
     license = "MIT"
     exports = ["LICENSE.md"]
