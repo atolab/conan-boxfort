@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS |
 |:--------:|:---------:|:-----------------:|
-|[ ![Download](https://api.bintray.com/packages/k0ekk0ek/public-conan/boxfort%3Ak0ekk0ek/images/download.svg) ](https://bintray.com/k0ekk0ek/public-conan/boxfort%3Ak0ekk0ek/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/1oyq2aeg1jg4eku9/branch/stable/05312018?svg=true)](https://ci.appveyor.com/project/k0ekk0ek/conan-boxfort/branch/stable/05112018)|[![Build Status](https://travis-ci.org/k0ekk0ek/conan-boxfort.svg?branch=stable%2F05112018)](https://travis-ci.org/k0ekk0ek/conan-boxfort)|
+|BINTRAY_BADGE_URL|APPVEYOR_BADGE_URL|TRAVIS_BADGE_URL|
 
 ## Conan.io Information
 
