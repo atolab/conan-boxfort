@@ -36,10 +36,10 @@ The contents of this GIT repository are completely separate from the software be
 
 ### License(s) for packaged software:
 
-    ~/.conan/data/conan-boxfort/<pkg_version>/bincrafters/package/<random_package_id>/license/<LICENSE_FILES_HERE>
+    ~/.conan/data/boxfort/<pkg_version>/bincrafters/package/<random_package_id>/license/<LICENSE_FILES_HERE>
 
 *Note :   The most common filenames for OSS licenses are `LICENSE` AND `COPYING` without file extensions.*
 
 ### License for Bincrafters recipe:
 
-    ~/.conan/data/conan-boxfort/<pkg_version>/bincrafters/export/LICENSE.md
+    ~/.conan/data/boxfort/<pkg_version>/bincrafters/export/LICENSE.md
